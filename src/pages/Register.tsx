@@ -43,6 +43,9 @@ const Register = () => {
         password: data.password,
       })
     );
+
+    console.log("dispath",dispatch);
+    
     form.reset();
 
     toast.success("user created successfully");
