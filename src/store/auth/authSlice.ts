@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { AuthState } from "./authTypes";
 import { loginUser, registerUser } from "./authThunks";
+import { json } from "zod";
 
 const initialState: AuthState = {
   user: null,
@@ -30,12 +31,16 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
+        console.log("action", action);
+        console.log("state", state);
+
         state.loading = false;
-        state.user = action.payload.user;
-        state.accessToken = action.payload.token;
+        state.user = action.payload.data.user;
+        state.accessToken = action.payload.data.accessToken;
         state.isAuthenticated = true;
 
-        localStorage.setItem("accessToken", action.payload.token);
+        localStorage.setItem("accessToken", action.payload.data.accessToken);
+        localStorage.setItem("user", JSON.stringify(action.payload.data.user));
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;

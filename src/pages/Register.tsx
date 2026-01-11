@@ -44,8 +44,8 @@ const Register = () => {
       })
     );
 
-    console.log("dispath",dispatch);
-    
+    console.log("dispath", dispatch);
+
     form.reset();
 
     toast.success("user created successfully");

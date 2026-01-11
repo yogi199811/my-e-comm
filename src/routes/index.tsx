@@ -23,7 +23,7 @@ const router = createBrowserRouter(
 
       {/* 🔐 Protected Routes */}
       <Route element={<ProtectedRoute />}>
-        <Route path="/" element={<Layout />} />
+        <Route path="dashboard" element={<Layout />} />
       </Route>
     </>
   )
