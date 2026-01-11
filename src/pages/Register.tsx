@@ -16,9 +16,12 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
+import { useAppDispatch } from "@/store/hooks";
+import { registerUser } from "@/store/auth/authThunks";
 
 const Register = () => {
-  const navigate = useNavigate()
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -33,6 +36,13 @@ const Register = () => {
 
   const onSubmit = (data: RegisterFormValues) => {
     console.log("data", data);
+    dispatch(
+      registerUser({
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      })
+    );
     form.reset();
 
     toast.success("user created successfully");
@@ -119,7 +129,10 @@ const Register = () => {
         {/* Footer */}
         <p className="text-center text-sm text-muted-foreground mt-4">
           Already have an account?{" "}
-          <span onClick={()=>navigate("/login")} className="text-primary cursor-pointer hover:underline">
+          <span
+            onClick={() => navigate("/login")}
+            className="text-primary cursor-pointer hover:underline"
+          >
             Login
           </span>
         </p>
